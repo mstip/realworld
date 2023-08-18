@@ -15,9 +15,9 @@
           <a class="nav-link" routerLink="/settings"> <i class="ion-gear-a"></i>&nbsp;Settings </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/profile/eric-simons">
+          <a class="nav-link" [routerLink]="'/profile/'+ username">
             <img src="" class="user-pic" />
-            Eric Simons
+            {{username}}
           </a>
         </li>
       </ng-container>

@@ -4,6 +4,11 @@ import { BehaviorSubject, catchError, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../models/user.model';
 
+
+interface UserResponse {
+  user: User;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -20,17 +25,19 @@ export class AuthService {
   }
 
   register(username: string, password: string, email: string) {
-    return this.http.post<User>(this.url, { user: { username, password, email } }).pipe(
+    return this.http.post<UserResponse>(this.url, { user: { username, password, email } }).pipe(
       tap(data => {
-        this.setUser(data)
+        this.setUser(data.user);
+        this.isAuthenticated.next(true);
       }),
     );
   }
 
   login(password: string, email: string) {
-    return this.http.post<User>(`${this.url}/login`, { user: { password, email } }).pipe(
+    return this.http.post<UserResponse>(`${this.url}/login`, { user: { password, email } }).pipe(
       tap(data => {
-        this.setUser(data)
+        this.setUser(data.user);
+        this.isAuthenticated.next(true);
       }),
     );
   }
