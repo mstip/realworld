@@ -8,13 +8,15 @@ import (
 	_ "github.com/mattn/go-sqlite3"
 )
 
-func main() {
+func NewSeededInMemDB() *sqlx.DB {
 	db := sqlx.MustConnect("sqlite3", ":memory:")
+	Migrate(db)
+	Seed(db)
+	return db
+}
 
-	tagService, _ := NewTagService(db)
-	tagService.Migrate()
-	tagService.Seed()
-
+func main() {
+	db := NewSeededInMemDB()
 	r := NewRouter(db)
 	http.Handle("/", r)
 
