@@ -25,7 +25,7 @@ func Migrate(db *sqlx.DB) {
 		"created_at"	TEXT NOT NULL,
 		"updated_at"	TEXT NOT NULL,
 		"author_id"	INTEGER NOT NULL,
-		PRIMARY KEY("id","title")
+		PRIMARY KEY("id" AUTOINCREMENT)
 	);
 	`)
 	db.MustExec(`

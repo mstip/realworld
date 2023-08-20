@@ -9,7 +9,7 @@ import (
 )
 
 func AllTagsHandler(w http.ResponseWriter, r *http.Request, db *sqlx.DB) {
-	tagService, _ := NewTagService(db)
+	tagService := NewTagService(db)
 	tags, err := tagService.AllTags()
 	if err != nil {
 		w.WriteHeader(500)
