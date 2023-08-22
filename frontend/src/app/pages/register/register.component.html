@@ -7,8 +7,8 @@
           <a routerLink="/login">Have an account?</a>
         </p>
 
-        <ul class="error-messages">
-          <li>That email is already taken</li>
+        <ul class="error-messages" *ngIf="error !== null">
+          <li>{{error}}</li>
         </ul>
 
           <fieldset class="form-group">
